@@ -27,8 +27,9 @@ Route::get('/issuers/all', function () {
 });
 
 Route::post('/cards', [CardController::class, 'store']);
-
-Route::middleware('auth:sanctum')->get('/cards', [CardController::class, 'index']);
-Route::middleware('auth:sanctum')->delete('/cards/{card}', [CardController::class, 'destroy']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/cards', [CardController::class, 'index']);
+    Route::delete('/cards/{card}', [CardController::class, 'destroy']);
+});
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
